@@ -4,37 +4,55 @@
     <meta charset="UTF-8">
     <title>Domestos Engine Browser</title>
     <style>
-        body { font-family: sans-serif; display: flex; flex-direction: column; height: 100vh; margin: 0; padding: 20px; background: #f0f0f0; }
-        #app-container { display: flex; gap: 20px; flex-grow: 1; }
-        #editor-pane, #viewport-pane { flex: 1; display: flex; flex-direction: column; }
-        textarea { flex-grow: 1; padding: 10px; font-family: monospace; border: 1px solid #ccc; }
-        #viewport { flex-grow: 1; border: 1px solid #999; background: white; padding: 10px; overflow-y: auto; }
-        .toolbar { margin-bottom: 10px; }
-        button { padding: 10px 20px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 4px; }
+        body, html { margin: 0; padding: 0; height: 100%; font-family: 'Segoe UI', sans-serif; }
+        
+        /* Tło stylizowane na obraz z image_2132fc.png */
+        body {
+            background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Centralny pasek wyszukiwania */
+        .search-container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        #url-bar {
+            width: 100%;
+            padding: 15px 25px;
+            border-radius: 50px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-size: 16px;
+            outline: none;
+        }
+
+        /* Kontener silnika pod paskiem */
+        #viewport {
+            width: 90%;
+            max-width: 800px;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
     </style>
 </head>
 <body>
 
-    <div class="toolbar">
-        <h2>Domestos Browser Engine</h2>
-        <button onclick="runBrowser()">Renderuj Stronę</button>
+    <div class="search-container">
+        <input type="text" id="url-bar" placeholder="Wyszukaj w Internecie...">
     </div>
 
-    <div id="app-container">
-        <div id="editor-pane">
-            <textarea id="editor" placeholder="Wpisz HTML tutaj...">
-<style>
-    h1 { color: #ff4500; font-size: 32px; }
-    p { color: #333; font-style: italic; }
-</style>
-<h1>Witaj w Domestos Engine!</h1>
-<p>To jest podgląd działania Twojego własnego silnika przeglądarki.</p>
-            </textarea>
-        </div>
-
-        <div id="viewport-pane">
-            <div id="viewport"></div>
-        </div>
+    <div id="viewport">
+        <!-- Tutaj silnik renderuje kod -->
     </div>
 
     <script src="engine.js"></script>
@@ -43,13 +61,10 @@
         const viewport = document.getElementById('viewport');
         const browser = new DomestosEngine(viewport);
 
-        function runBrowser() {
-            const code = document.getElementById('editor').value;
-            browser.render(code);
+        // Funkcja renderująca zawartość
+        function loadPage(content) {
+            browser.render(content);
         }
-
-        // Automatyczny start przy ładowaniu
-        window.onload = runBrowser;
     </script>
 </body>
 </html>
