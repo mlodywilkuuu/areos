@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Domestos Engine Browser</title>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; height: 100vh; margin: 0; padding: 20px; background: #f0f0f0; }
+        #app-container { display: flex; gap: 20px; flex-grow: 1; }
+        #editor-pane, #viewport-pane { flex: 1; display: flex; flex-direction: column; }
+        textarea { flex-grow: 1; padding: 10px; font-family: monospace; border: 1px solid #ccc; }
+        #viewport { flex-grow: 1; border: 1px solid #999; background: white; padding: 10px; overflow-y: auto; }
+        .toolbar { margin-bottom: 10px; }
+        button { padding: 10px 20px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+    <div class="toolbar">
+        <h2>Domestos Browser Engine</h2>
+        <button onclick="runBrowser()">Renderuj Stronę</button>
+    </div>
+
+    <div id="app-container">
+        <div id="editor-pane">
+            <textarea id="editor" placeholder="Wpisz HTML tutaj...">
+<style>
+    h1 { color: #ff4500; font-size: 32px; }
+    p { color: #333; font-style: italic; }
+</style>
+<h1>Witaj w Domestos Engine!</h1>
+<p>To jest podgląd działania Twojego własnego silnika przeglądarki.</p>
+            </textarea>
+        </div>
+
+        <div id="viewport-pane">
+            <div id="viewport"></div>
+        </div>
+    </div>
+
+    <script src="engine.js"></script>
+    <script>
+        // Inicjalizacja silnika
+        const viewport = document.getElementById('viewport');
+        const browser = new DomestosEngine(viewport);
+
+        function runBrowser() {
+            const code = document.getElementById('editor').value;
+            browser.render(code);
+        }
+
+        // Automatyczny start przy ładowaniu
+        window.onload = runBrowser;
+    </script>
+</body>
+</html>
