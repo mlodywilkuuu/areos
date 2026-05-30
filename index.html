@@ -1,70 +1,11 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <title>Domestos Engine Browser</title>
-    <style>
-        body, html { margin: 0; padding: 0; height: 100%; font-family: 'Segoe UI', sans-serif; }
-        
-        /* Tło stylizowane na obraz z image_2132fc.png */
-        body {
-            background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
-            background-size: cover;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Centralny pasek wyszukiwania */
-        .search-container {
-            width: 100%;
-            max-width: 600px;
-            padding: 20px;
-        }
-
-        #url-bar {
-            width: 100%;
-            padding: 15px 25px;
-            border-radius: 50px;
-            border: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            font-size: 16px;
-            outline: none;
-        }
-
-        /* Kontener silnika pod paskiem */
-        #viewport {
-            width: 90%;
-            max-width: 800px;
-            margin-top: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            padding: 20px;
-            backdrop-filter: blur(10px);
-        }
-    </style>
-</head>
-<body>
-
-    <div class="search-container">
-        <input type="text" id="url-bar" placeholder="Wyszukaj w Internecie...">
+<div id="browser-ui">
+    <div id="tab-bar">
+        <div class="tab active" onclick="switchTab(0)">Karta 1</div>
+        <button onclick="newTab()">+</button>
     </div>
-
-    <div id="viewport">
-        <!-- Tutaj silnik renderuje kod -->
+    <div id="url-bar-container">
+        <input type="text" id="url-bar" placeholder="Wpisz adres lub kod HTML..." onkeydown="if(event.key==='Enter') loadUrl()">
     </div>
-
-    <script src="engine.js"></script>
-    <script>
-        // Inicjalizacja silnika
-        const viewport = document.getElementById('viewport');
-        const browser = new DomestosEngine(viewport);
-
-        // Funkcja renderująca zawartość
-        function loadPage(content) {
-            browser.render(content);
-        }
-    </script>
-</body>
-</html>
+    <div id="viewport"></div>
+</div>
+<script src="engine.js"></script>
